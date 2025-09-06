@@ -1,6 +1,7 @@
 # Docker Compose Development Environment
 
 ![Docker Compose Development Environment](docker.jpg)
+![Dashboard](dashboard.png)
 
 **English** | [Русский](README-RU.md)
 
