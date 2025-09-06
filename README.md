@@ -62,12 +62,17 @@ DockerComposeDev/
    cd DockerComposeDev
    ```
 
-2. Start all services:
+2. Create Docker network:
+   ```bash
+   docker network create common-net
+   ```
+
+3. Start all services:
    ```bash
    docker-compose -f docker-compose.yml up -d
    ```
 
-3. Access the services:
+4. Access the services:
    - Nginx: http://localhost
    - GitLab: http://gitlab.dev.lan
    - SonarQube: http://sonarqube.dev.lan

@@ -29,7 +29,7 @@ services:
           cpus: "1"
           memory: 1G
 
-zookeeper:
+  zookeeper:
     image: wurstmeister/zookeeper:latest
     container_name: zookeeper
     hostname: zookeeper

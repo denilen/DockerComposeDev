@@ -61,13 +61,16 @@ DockerComposeDev/
    git clone <repository-url>
    cd DockerComposeDev
    ```
-
-2. Запустите все сервисы:
+2. Создайте Docker сеть:
+   ```bash
+   docker network create common-net
+   ```
+3. Запустите все сервисы:
    ```bash
    docker-compose -f docker-compose.yml up -d
    ```
 
-3. Доступ к сервисам:
+4. Доступ к сервисам:
    - Nginx: http://localhost
    - GitLab: http://gitlab.dev.lan
    - SonarQube: http://sonarqube.dev.lan
