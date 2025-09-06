@@ -1,0 +1,46 @@
+networks:
+  teamcity:
+    driver: bridge
+  common-net:
+    external: true
+
+services:
+
+  teamcity:
+    image: jetbrains/teamcity-server:latest
+    container_name: teamcity
+    hostname: teamcity
+    environment:
+      - TZ=Asia/Yekaterinburg
+    volumes:
+      - ./server/datadir:/data/teamcity_server/datadir
+      - ./teamcity/logs:/opt/teamcity/logs
+    networks:
+      - teamcity
+      - common-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 2G
+
+  teamcity_agent:
+    image: jetbrains/teamcity-agent:latest
+    container_name: teamcity-agent
+    hostname: teamcity-agent
+    environment:
+      - SERVER_URL=http://teamcity:8111
+      - TZ=Asia/Yekaterinburg
+    volumes:
+      - ./agent/conf:/data/teamcity-agent/conf
+    networks:
+      - teamcity
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 400M
+
+

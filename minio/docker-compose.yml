@@ -1,0 +1,28 @@
+networks:
+  minio:
+    driver: bridge
+  common-net:
+    external: true
+
+services:
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    hostname: minio
+    volumes:
+      - ./data:/data
+    command: minio server /data --console-address ":9001"
+    environment:
+        - MINIO_ROOT_USER=admin
+        - MINIO_ROOT_PASSWORD=adminpassword
+        - TZ=Asia/Yekaterinburg
+    networks:
+      - minio
+      - common-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 300M

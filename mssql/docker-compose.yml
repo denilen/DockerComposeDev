@@ -1,0 +1,28 @@
+networks:
+  mssql:
+    driver: bridge
+
+services:
+
+  MsSql:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: MsSql
+    hostname: MsSql
+    volumes:
+      - ./data:/var/opt/mssql/data
+      - ./log:/var/opt/mssql/log
+      - ./backup:/var/opt/mssql/backup
+    environment:
+      - TZ=Asia/Yekaterinburg
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=dev
+    networks:
+      - mssql
+    ports:
+      - "1433:1433"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G

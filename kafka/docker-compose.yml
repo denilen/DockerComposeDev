@@ -1,0 +1,48 @@
+networks:
+  kafka:
+    driver: bridge
+  common-net:
+    external: true
+
+services:
+  
+  kafka:
+    image: wurstmeister/kafka:latest
+    container_name: kafka
+    hostname: kafka
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_ADVERTISED_PORT=9092
+      - KAFKA_PORT=9092
+      - KAFKA_CREATE_TOPICS=provider-matches:10:1,betting-matches:10:1,match-creation:10:1,match-node:1:1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - TZ=Asia/Yekaterinburg
+    networks:
+      - kafka
+      - common-net
+    ports:
+      - "9092:9092"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+
+zookeeper:
+    image: wurstmeister/zookeeper:latest
+    container_name: zookeeper
+    hostname: zookeeper
+    environment:
+      - TZ=Asia/Yekaterinburg
+    networks:
+      - kafka
+      - common-net
+    ports:
+      - "2181:2181"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G

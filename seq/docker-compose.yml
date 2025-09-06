@@ -1,0 +1,26 @@
+networks:
+  seq:
+    driver: bridge
+  common-net:
+    external: true
+
+services:
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    hostname: seq
+    environment:
+        - ACCEPT_EULA=Y
+        - TZ=Asia/Yekaterinburg
+    networks:
+      - seq
+    ports:
+      - "8090:80"
+      - "5341:5341"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 300M

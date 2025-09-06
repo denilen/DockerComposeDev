@@ -1,0 +1,25 @@
+networks:
+  mongoDb:
+    driver: bridge
+
+services:
+
+  mongoDb:
+    image: mongo:latest
+    container_name: mongoDb
+    hostname: mongoDb
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: dev
+        MONGO_INITDB_ROOT_PASSWORD: dev
+    networks:
+      - mongoDb
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./db:/data/db
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
